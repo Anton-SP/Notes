@@ -2,6 +2,7 @@ package com.home.notes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
@@ -19,23 +20,52 @@ public class EditNoteActivity extends AppCompatActivity {
     private int id = -1;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
 
-        title= findViewById(R.id.edit_title);
+        title = findViewById(R.id.edit_title);
         description = findViewById(R.id.edit_description);
         updateNote = findViewById(R.id.update_note_button);
 
         Intent intent = getIntent();
-        if (intent!=null){
+        if (intent != null) {
             Note note = (Note) intent.getSerializableExtra(Constans.NOTE);
             id = note.getId();
             title.setText(note.getTitle());
             description.setText(note.getDescription());
         }
 
+        updateNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString());
+                Intent returnUpdateIntent = new Intent();
+                returnUpdateIntent.putExtra(Constans.NOTE, updatedNote);
+                setResult(RESULT_OK,returnUpdateIntent);
+                finish();
+            }
+        });
+
     }
 }
+
+
+/*
+
+    findViewById(R.id.exit_setting).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int mode=-1;
+            if (day.isChecked()){mode = 1;}
+            if (night.isChecked()){mode= 2;}
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(CalculatorActivity.THEME_MODE,mode);
+            setResult(RESULT_OK,returnIntent);
+
+            finish();
+        }
+    });
+*/
