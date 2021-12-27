@@ -29,6 +29,7 @@ public class EditNoteActivity extends AppCompatActivity {
         description = findViewById(R.id.edit_description);
         updateNote = findViewById(R.id.update_note_button);
 
+
         Intent intent = getIntent();
         if (intent != null) {
             Note note = (Note) intent.getSerializableExtra(Constans.NOTE);
@@ -37,35 +38,16 @@ public class EditNoteActivity extends AppCompatActivity {
             description.setText(note.getDescription());
         }
 
-        updateNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString());
-                Intent returnUpdateIntent = new Intent();
-                returnUpdateIntent.putExtra(Constans.NOTE, updatedNote);
-                setResult(RESULT_OK,returnUpdateIntent);
-                finish();
-            }
+
+        updateNote.setOnClickListener(v -> {
+            Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString());
+            Intent returnUpdateIntent = new Intent();
+            returnUpdateIntent.putExtra(Constans.NOTE, updatedNote);
+            setResult(RESULT_OK, returnUpdateIntent);
+            finish();
         });
 
     }
 }
 
 
-/*
-
-    findViewById(R.id.exit_setting).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int mode=-1;
-            if (day.isChecked()){mode = 1;}
-            if (night.isChecked()){mode= 2;}
-
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra(CalculatorActivity.THEME_MODE,mode);
-            setResult(RESULT_OK,returnIntent);
-
-            finish();
-        }
-    });
-*/

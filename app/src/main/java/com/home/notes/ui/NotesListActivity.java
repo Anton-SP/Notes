@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.home.notes.R;
 import com.home.notes.data.Constans;
@@ -28,6 +29,7 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
     private NoteAdapter adapter;
 
     private ActivityResultLauncher<Intent> updateLauncher;
+    private ActivityResultLauncher<Intent> createLauncher;
 
 
     @Override
@@ -47,6 +49,7 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
         list.setAdapter(adapter);
 
         updateNote();
+        createNote();
 
 
     }
@@ -88,33 +91,12 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
                     if (updateResult != null) {
                         Note updatedNote = (Note) updateResult.getSerializableExtra(Constans.NOTE);
                         repository.update(updatedNote);
-                        //  adapter.setNotes(repository.getAll());
-                        adapter.notifyItemChanged(updatedNote.getId());//с этим получилось лучше
+                        adapter.notifyItemChanged(updatedNote.getId());
                     }
                 }
         );
 
-
-
     }
-    /*
- private void changeTheme() {
-        themeLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    Intent settingResult = result.getData();
-                    if (settingResult != null) {
-                        int mode = settingResult.getIntExtra(THEME_MODE, -1);
-                        if (mode == 1)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        if (mode == 2)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    }
-                }
-        );
-    }
-
-*/
 
 
     @Override
@@ -127,12 +109,30 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_create:
-                //add implementation
+                Intent createNoteIntent = new Intent(this, CreateNoteActivity.class);
+                createLauncher.launch(createNoteIntent);
                 return true;
         }
-
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createNote() {
+
+        createLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    Intent createResult = result.getData();
+                    if (createResult != null) {
+                        Note newNote = (Note) createResult.getSerializableExtra(Constans.NOTE);
+                        repository.create(newNote);
+                        adapter.notifyItemInserted(newNote.getId());
+                        adapter.notifyItemInserted(newNote.getId());
+
+                    }
+                }
+        );
+
+
     }
 
 

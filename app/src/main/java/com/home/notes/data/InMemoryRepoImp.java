@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryRepoImp implements Repo {
-    private  static InMemoryRepoImp repo;
+    private static InMemoryRepoImp repo;
 
-    public static Repo getInstance()
-    {
-        if (repo == null)
-        {
+    public static Repo getInstance() {
+        if (repo == null) {
             repo = new InMemoryRepoImp();
         }
-        return  repo;
+        return repo;
     }
-
 
 
     private ArrayList<Note> notes = new ArrayList<>();
@@ -41,8 +38,8 @@ public class InMemoryRepoImp implements Repo {
     @Override
     public void update(Note note) {
         for (int i = 0; i < notes.size(); i++) {
-          //  if ((notes.get(i).getId() == note.getId())) {
-            if ((notes.get(i).getId().equals(note.getId())  )) {
+
+            if ((notes.get(i).getId().equals(note.getId()))) {
                 notes.set(i, note);
                 break;
             }

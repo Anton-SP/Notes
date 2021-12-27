@@ -20,7 +20,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
-     //   notifyDataSetChanged();
+
     }
 
     public interface OnNoteClickListener {
@@ -30,7 +30,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
 
     private OnNoteClickListener listener;
 
-    public void setOnNoteClickListener(OnNoteClickListener listener){
+    public void setOnNoteClickListener(OnNoteClickListener listener) {
         this.listener = listener;
     }
 
@@ -41,7 +41,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.note_item, parent, false);
-        return new NoteHolder(view,listener);
+        return new NoteHolder(view, listener);
 
     }
 

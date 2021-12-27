@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="description_size">20sp</dimen>
+    <dimen name="corner_radius">20dp</dimen>
+    <dimen name="margin_button">100dp</dimen>
+    <dimen name="item_margin">12dp</dimen>
+    <dimen name="card_elevation">12sp</dimen>
+</resources>
