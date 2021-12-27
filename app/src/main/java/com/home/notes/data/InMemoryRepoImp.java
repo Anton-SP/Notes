@@ -4,6 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryRepoImp implements Repo {
+    private  static InMemoryRepoImp repo;
+
+    public static Repo getInstance()
+    {
+        if (repo == null)
+        {
+            repo = new InMemoryRepoImp();
+        }
+        return  repo;
+    }
+
+
 
     private ArrayList<Note> notes = new ArrayList<>();
     private int counter = 0;

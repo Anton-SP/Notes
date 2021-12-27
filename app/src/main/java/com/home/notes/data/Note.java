@@ -1,6 +1,8 @@
 package com.home.notes.data;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
     private Integer id;
     private String title;
     private String description;

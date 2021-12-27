@@ -6,6 +6,7 @@
     android:background="?selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:layout_margin="12dp"
     android:orientation="vertical">
 
     <TextView
