@@ -22,7 +22,7 @@ import com.home.notes.recycler.NoteAdapter;
 
 public class NotesListActivity extends AppCompatActivity implements NoteAdapter.OnNoteClickListener {
 
-
+/////////////////
     private Repo repository = InMemoryRepoImp.getInstance();
 
     private RecyclerView list;
