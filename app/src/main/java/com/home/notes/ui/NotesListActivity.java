@@ -1,12 +1,17 @@
 package com.home.notes.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.home.notes.R;
 import com.home.notes.data.InMemoryRepoImp;
 import com.home.notes.data.Repo;
+import com.home.notes.fragments.CreateNoteFragment;
+import com.home.notes.fragments.EditNoteFragment;
 import com.home.notes.fragments.NoteListFragment;
 
 public class NotesListActivity extends AppCompatActivity  {
@@ -28,7 +33,6 @@ public class NotesListActivity extends AppCompatActivity  {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.list_fragment_holder, new NoteListFragment())
-            //    .addToBackStack(null)
                 .commit();
 
 
@@ -53,6 +57,28 @@ public class NotesListActivity extends AppCompatActivity  {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_create:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.list_fragment_holder, new CreateNoteFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
  /*   private void fillRepo() {

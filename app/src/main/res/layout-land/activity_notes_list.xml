@@ -4,13 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.NotesListActivity">
+    tools:context=".ui.NotesListActivity"
+    android:orientation="horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:id="@+id/list">
+        android:id="@+id/list_fragment_holder"
+        android:layout_weight="1"
+        android:background="@color/teal_200"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/detail_fragment_holder"
+        android:layout_weight="3"
+        android:background="@color/teal_700"/>
+
+
 
 </LinearLayout>

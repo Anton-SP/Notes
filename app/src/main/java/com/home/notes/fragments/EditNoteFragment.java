@@ -17,15 +17,10 @@ import com.home.notes.R;
 import com.home.notes.data.Constans;
 import com.home.notes.data.Note;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditNoteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class EditNoteFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private EditText title;
     private EditText description;
     private MaterialButton updateNote;
@@ -41,7 +36,7 @@ public class EditNoteFragment extends Fragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
+
     public static EditNoteFragment newInstance(Note note) {
         EditNoteFragment fragment = new EditNoteFragment();
         Bundle args = new Bundle();

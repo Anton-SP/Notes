@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -54,8 +55,15 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Note resultNote  = (Note) result.getSerializable(Constans.NOTE);
-                repository.update(resultNote);
-                adapter.notifyItemChanged(resultNote.getId());
+                if (resultNote.getId()!=-1){
+                    repository.update(resultNote);
+                    adapter.notifyItemChanged(resultNote.getId());
+                } else {
+                    repository.create(resultNote);
+                    adapter.notifyItemInserted(resultNote.getId());
+                }
+
+
             }
         });
 
@@ -138,4 +146,27 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
                 .addToBackStack(null)
                 .commit();
     }
+
 }
+
+
+
+/*
+ @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_create:
+                Intent createNoteIntent = new Intent(this, CreateNoteActivity.class);
+                createLauncher.launch(createNoteIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+*/
