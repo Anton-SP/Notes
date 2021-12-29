@@ -1,61 +1,61 @@
 package com.home.notes.ui;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.home.notes.R;
-import com.home.notes.data.Constans;
 import com.home.notes.data.InMemoryRepoImp;
-import com.home.notes.data.Note;
 import com.home.notes.data.Repo;
-import com.home.notes.recycler.NoteAdapter;
+import com.home.notes.fragments.NoteListFragment;
 
-public class NotesListActivity extends AppCompatActivity implements NoteAdapter.OnNoteClickListener {
+public class NotesListActivity extends AppCompatActivity  {
 
 /////////////////
-    private Repo repository = InMemoryRepoImp.getInstance();
+  //  private Repo repository = InMemoryRepoImp.getInstance();
 
-    private RecyclerView list;
-    private NoteAdapter adapter;
+ //   private RecyclerView list;
+ //   private NoteAdapter adapter;
 
-    private ActivityResultLauncher<Intent> updateLauncher;
-    private ActivityResultLauncher<Intent> createLauncher;
+ //   private ActivityResultLauncher<Intent> updateLauncher;
+ //   private ActivityResultLauncher<Intent> createLauncher;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.list_fragment_holder, new NoteListFragment())
+            //    .addToBackStack(null)
+                .commit();
 
-        fillRepo();
 
-        adapter = new NoteAdapter();
+
+
+
+
+  // fillRepo();
+
+  /*      adapter = new NoteAdapter();
         adapter.setNotes(repository.getAll());
 
         adapter.setOnNoteClickListener(this);
 
         list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
+        list.setAdapter(adapter);*/
 
-        updateNote();
-        createNote();
+
+   //     updateNote();
+   //     createNote();
 
 
     }
 
 
-    private void fillRepo() {
+ /*   private void fillRepo() {
         repository.create(new Note("Title1", "Description 1"));
         repository.create(new Note("Title2", "Description 2"));
         repository.create(new Note("Title3", "Description 3"));
@@ -73,9 +73,9 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
         repository.create(new Note("Title15", "Description 15"));
 
 
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onNoteClick(Note note) {
         Intent editIntent = new Intent(this, EditNoteActivity.class);
         editIntent.putExtra(Constans.NOTE, note);
@@ -133,7 +133,7 @@ public class NotesListActivity extends AppCompatActivity implements NoteAdapter.
         );
 
 
-    }
+    }*/
 
 
 }
