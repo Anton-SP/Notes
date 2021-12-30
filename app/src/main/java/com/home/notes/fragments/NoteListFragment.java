@@ -1,5 +1,6 @@
 package com.home.notes.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.service.controls.templates.ControlButton;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -30,8 +32,6 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     private NoteAdapter adapter;
 
 
-
-
     public NoteListFragment() {
         // Required empty public constructor
     }
@@ -41,7 +41,7 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     public static NoteListFragment newInstance(Note note) {
         NoteListFragment fragment = new NoteListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(Constans.NOTE,note);
+        args.putSerializable(Constans.NOTE, note);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +54,8 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
         getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                Note resultNote  = (Note) result.getSerializable(Constans.NOTE);
-                if (resultNote.getId()!=-1){
+                Note resultNote = (Note) result.getSerializable(Constans.NOTE);
+                if (resultNote.getId() != -1) {
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
                 } else {
@@ -63,31 +63,11 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
                     adapter.notifyItemInserted(resultNote.getId());
                 }
 
-
             }
         });
 
-
-
     }
 
-/*
-@Override
-public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
-        @Override
-        public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-            // We use a String here, but any type that can be put in a Bundle is supported
-            String result = bundle.getString("bundleKey");
-            // Do something with the result
-        }
-    });
-}
-
-
-
-*/
 
     @Override
 
@@ -103,17 +83,15 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fillRepo();
-
+        if (((InMemoryRepoImp) repository).getCounter() == 0) {
+            fillRepo();
+        }
 
 
         adapter = new NoteAdapter();
         adapter.setNotes(repository.getAll());
 
         adapter.setOnNoteClickListener(this::onNoteClick);
-
-
-
 
         list = view.findViewById(R.id.recycler_note_list);
         list.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -140,33 +118,25 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
 
     @Override
     public void onNoteClick(Note note) {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note))
-                .addToBackStack(null)
-                .commit();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note))
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.detail_fragment_holder, EditNoteFragment.newInstance(note))
+                    //     .addToBackStack(null)
+                    .commit();
+
+        }
+
+
     }
+
 
 }
 
-
-
-/*
- @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_create:
-                Intent createNoteIntent = new Intent(this, CreateNoteActivity.class);
-                createLauncher.launch(createNoteIntent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-*/

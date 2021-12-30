@@ -17,6 +17,9 @@ public class InMemoryRepoImp implements Repo {
     private ArrayList<Note> notes = new ArrayList<>();
     private int counter = 0;
 
+    public int getCounter() {
+        return counter;
+    }
 
     @Override
     public int create(Note note) {

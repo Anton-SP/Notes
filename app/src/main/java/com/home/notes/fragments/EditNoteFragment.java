@@ -1,5 +1,6 @@
 package com.home.notes.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
+
 
 import com.google.android.material.button.MaterialButton;
 import com.home.notes.R;
@@ -27,7 +28,7 @@ public class EditNoteFragment extends Fragment {
     private int id = -1;
 
 
-    // TODO: Rename and change types of parameters
+
     private Note note;
 
 
@@ -73,8 +74,7 @@ public class EditNoteFragment extends Fragment {
             title.setText(note.getTitle());
             description.setText(note.getDescription());
             id = note.getId();
-   //         Toast.makeText(requireContext(),id+"index",Toast.LENGTH_SHORT).show();
-            }
+              }
 
         updateNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,70 +84,16 @@ public class EditNoteFragment extends Fragment {
                 result.putSerializable(Constans.NOTE,updatedNote);
 
                 getParentFragmentManager().setFragmentResult(Constans.REQUEST_KEY,result);
-                getParentFragmentManager().popBackStack();
-                //getFragmentManager().popBackStack();
+                if  (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                    getParentFragmentManager().popBackStack();
+                } else {
+                    getParentFragmentManager().beginTransaction().remove(EditNoteFragment.this).commit();
+                }
+
             }
         });
 
     }
 }
-/*
 
-
-button.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Bundle result = new Bundle();
-        result.putString("bundleKey", "result");
-        getParentFragmentManager().setFragmentResult("requestKey", result);
-    }
-});
-
-
-*/
-
-
-
-/*
-  private EditText title;
-    private EditText description;
-    private MaterialButton updateNote;
-    private int id = -1;
-
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_note);
-
-        title = findViewById(R.id.edit_title);
-        description = findViewById(R.id.edit_description);
-        updateNote = findViewById(R.id.update_note_button);
-
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            Note note = (Note) intent.getSerializableExtra(Constans.NOTE);
-            id = note.getId();
-            title.setText(note.getTitle());
-            description.setText(note.getDescription());
-        }
-
-
-        updateNote.setOnClickListener(v -> {
-            Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString());
-            Intent returnUpdateIntent = new Intent();
-            returnUpdateIntent.putExtra(Constans.NOTE, updatedNote);
-            setResult(RESULT_OK, returnUpdateIntent);
-            finish();
-        });
-
-    }
-}
-
-
-
-
-
-*/
 

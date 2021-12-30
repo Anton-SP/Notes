@@ -1,5 +1,6 @@
 package com.home.notes.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,16 +71,12 @@ public class CreateNoteFragment extends Fragment {
                 Note createdNote = new Note(id, title.getText().toString(), description.getText().toString());
                 result.putSerializable(Constans.NOTE,createdNote);
                 getParentFragmentManager().setFragmentResult(Constans.REQUEST_KEY,result);
-                getParentFragmentManager().popBackStack();
+                if  (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                    getParentFragmentManager().popBackStack();
+                } else {
+                    getParentFragmentManager().beginTransaction().remove(CreateNoteFragment.this).commit();
+                }
 
-                /*
-                  Bundle result = new Bundle();
-                Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString());
-                result.putSerializable(Constans.NOTE,updatedNote);
-
-                getParentFragmentManager().setFragmentResult(Constans.REQUEST_KEY,result);
-                getParentFragmentManager().popBackStack();
-                */
             }
         });
 
