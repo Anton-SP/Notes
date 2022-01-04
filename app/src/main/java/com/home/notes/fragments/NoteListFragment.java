@@ -135,6 +135,9 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
         }
 
 
+        //TODO need date and importance of the note
+
+
     }
 
 
