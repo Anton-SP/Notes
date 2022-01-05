@@ -90,26 +90,22 @@ public class EditNoteFragment extends Fragment  {
             updateNote = view.findViewById(R.id.fragment_update_note_button);
             importanceSpinner = view.findViewById(R.id.fragment_edit_importance_spinner);
             setDate = view.findViewById(R.id.fragment_edit_date_button);
-
             Note note = (Note) getArguments().getSerializable(Constans.NOTE);
             title.setText(note.getTitle());
             description.setText(note.getDescription());
+            importance= note.getImportance();
+            date.setText(note.getDate());
             id = note.getId();
-//////////////////////////////////////////////
 
 
-           // getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_DATE_KEY, this, new FragmentResultListener() {
-           requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_DATE_KEY, this, new FragmentResultListener() {
+            requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_DATE_KEY, this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                     String setDate = result.getString(Constans.DATE);
-                    // Note resultNote = (Note) result.getSerializable(Constans.NOTE);
                     Log.d(Constans.TAG, "onFragmentResult() called with: requestKey = [" + requestKey + "], result = [" + result + "]");
                     date.setText(setDate);
                 }
             });
-
-
 
 
             importanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -120,13 +116,11 @@ public class EditNoteFragment extends Fragment  {
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
                     importance = (String) parent.getItemAtPosition(1);
                 }
             });
 
         }
-
 
 
         updateNote.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +130,6 @@ public class EditNoteFragment extends Fragment  {
                 Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString(),importance,date.getText().toString());
                 result.putSerializable(Constans.NOTE,updatedNote);
                 requireActivity().getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY,result);
-              //  getParentFragmentManager().setFragmentResult(Constans.REQUEST_KEY,result);
                 if  (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
                     getParentFragmentManager().popBackStack();
                 } else {
@@ -151,13 +144,8 @@ public class EditNoteFragment extends Fragment  {
         setDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.list_fragment_holder, DateFragment.newInstance())  //EditNoteFragment.newInstance(note))
-                        .addToBackStack(null)
-                        .commit();
-
+                DialogFragment newFragment = new DateDialogFragment();
+                newFragment.show(requireActivity().getSupportFragmentManager(), "datePicker");
             }
         });
 

@@ -63,7 +63,7 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
                 } else {
-                    Log.d(Constans.TAG, "onFragmentResult() NEWWW ITEM!");
+                    Log.d(Constans.TAG, "onFragmentResult() NEW ITEM!");
                     repository.create(resultNote);
                     adapter.notifyItemInserted(resultNote.getId());
                 }
@@ -104,21 +104,21 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     }
 
     private void fillRepo() {
-        repository.create(new Note("Title1", "Description 1", "Normal","11/11/22"));
-        repository.create(new Note("Title2", "Description 2", "Normal","11/11/22"));
-        repository.create(new Note("Title3", "Description 3", "Normal","11/11/22"));
-        repository.create(new Note("Title4", "Description 4", "Normal","11/11/22"));
-        repository.create(new Note("Title5", "Description 5", "Normal","11/11/22"));
-        repository.create(new Note("Title6", "Description 6", "Normal","11/11/22"));
-        repository.create(new Note("Title7", "Description 7", "Normal","11/11/22"));
-        repository.create(new Note("Title8", "Description 8", "Normal","11/11/22"));
-        repository.create(new Note("Title9", "Description 9", "Normal","11/11/22"));
-        repository.create(new Note("Title10", "Description 10", "Normal","11/11/22"));
-        repository.create(new Note("Title11", "Description 11", "Normal","11/11/22"));
-        repository.create(new Note("Title12", "Description 12", "Normal","11/11/22"));
-        repository.create(new Note("Title13", "Description 13", "Normal","11/11/22"));
-        repository.create(new Note("Title14", "Description 14", "Normal","11/11/22"));
-        repository.create(new Note("Title15", "Description 15", "Normal","11/11/22"));
+        repository.create(new Note("Title1", "Description 1", "high","11/11/22"));
+        repository.create(new Note("Title2", "Description 2", "high","11/11/22"));
+        repository.create(new Note("Title3", "Description 3", "high","11/11/22"));
+        repository.create(new Note("Title4", "Description 4", "high","11/11/22"));
+        repository.create(new Note("Title5", "Description 5", "low","11/11/22"));
+        repository.create(new Note("Title6", "Description 6", "low","11/11/22"));
+        repository.create(new Note("Title7", "Description 7", "low","11/11/22"));
+        repository.create(new Note("Title8", "Description 8", "low","11/11/22"));
+        repository.create(new Note("Title9", "Description 9", "low","11/11/22"));
+        repository.create(new Note("Title10", "Description 10", "normal","11/11/22"));
+        repository.create(new Note("Title11", "Description 11", "normal","11/11/22"));
+        repository.create(new Note("Title12", "Description 12", "normal","11/11/22"));
+        repository.create(new Note("Title13", "Description 13", "normal","11/11/22"));
+        repository.create(new Note("Title14", "Description 14", "normal","11/11/22"));
+        repository.create(new Note("Title15", "Description 15", "normal","11/11/22"));
 
     }
 
@@ -127,7 +127,7 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note))
+                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note),Constans.TAG_EDIT_FRAGMENT)
                     .addToBackStack(null)
                     .commit();
         } else {
@@ -135,13 +135,15 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.detail_fragment_holder, EditNoteFragment.newInstance(note))
-                    //     .addToBackStack(null)
+                    .addToBackStack(null)
                     .commit();
 
         }
 
 
     }
+
+
 
 
 }

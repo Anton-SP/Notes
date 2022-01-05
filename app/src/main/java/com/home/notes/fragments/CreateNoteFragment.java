@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
@@ -131,11 +132,14 @@ public class CreateNoteFragment extends Fragment {
         setDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager()
+
+                DialogFragment newFragment = new DateDialogFragment();
+                newFragment.show(requireActivity().getSupportFragmentManager(), "datePicker");
+             /*   requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.list_fragment_holder, DateFragment.newInstance())  //EditNoteFragment.newInstance(note))
                         .addToBackStack(null)
-                        .commit();
+                        .commit();*/
             }
 
         });

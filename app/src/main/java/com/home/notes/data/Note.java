@@ -1,6 +1,7 @@
 package com.home.notes.data;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Note implements Serializable {
@@ -9,6 +10,7 @@ public class Note implements Serializable {
     private String description;
     private String importance;
     private String date;
+
 
 
     public Note(String title, String description, String importance, String date) {

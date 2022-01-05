@@ -2,6 +2,7 @@ package com.home.notes.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.res.Configuration;
@@ -50,7 +51,7 @@ public class NotesListActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.detail_fragment_holder, new CreateNoteFragment())
-                            //    .addToBackStack(null)
+                            .addToBackStack(null)
                             .commit();
                     return true;
                 }
@@ -58,7 +59,26 @@ public class NotesListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
 
+        for (Fragment f: getSupportFragmentManager().getFragments())
+        {
+            if (f.isVisible())
+            {
+                FragmentManager childFm = f.getChildFragmentManager();
+                if (childFm.getBackStackEntryCount()>0)
+                {
+                    childFm.popBackStack();
+                    return;
+                }
+            }
+
+        }
+
+
+        super.onBackPressed();
+    }
 }
 
 
