@@ -1,6 +1,7 @@
 package com.home.notes.fragments;
 
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.service.controls.templates.ControlButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -37,7 +39,6 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static NoteListFragment newInstance(Note note) {
         NoteListFragment fragment = new NoteListFragment();
         Bundle args = new Bundle();
@@ -49,16 +50,20 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(Constans.TAG, "onCreate()NOTE LISTTTTTTTT  ");
+///////////////////////////////////
 
-
-        getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
+       requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
+     //   getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Note resultNote = (Note) result.getSerializable(Constans.NOTE);
                 if (resultNote.getId() != -1) {
+                    Log.d(Constans.TAG, "onFragmentResult() UPDATE ITEM!");
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
                 } else {
+                    Log.d(Constans.TAG, "onFragmentResult() NEWWW ITEM!");
                     repository.create(resultNote);
                     adapter.notifyItemInserted(resultNote.getId());
                 }
@@ -99,21 +104,22 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     }
 
     private void fillRepo() {
-        repository.create(new Note("Title1", "Description 1"));
-        repository.create(new Note("Title2", "Description 2"));
-        repository.create(new Note("Title3", "Description 3"));
-        repository.create(new Note("Title4", "Description 4"));
-        repository.create(new Note("Title5", "Description 5"));
-        repository.create(new Note("Title6", "Description 6"));
-        repository.create(new Note("Title7", "Description 7"));
-        repository.create(new Note("Title8", "Description 8"));
-        repository.create(new Note("Title9", "Description 9"));
-        repository.create(new Note("Title10", "Description 10"));
-        repository.create(new Note("Title11", "Description 11"));
-        repository.create(new Note("Title12", "Description 12"));
-        repository.create(new Note("Title13", "Description 13"));
-        repository.create(new Note("Title14", "Description 14"));
-        repository.create(new Note("Title15", "Description 15"));
+        repository.create(new Note("Title1", "Description 1", "Normal","11/11/22"));
+        repository.create(new Note("Title2", "Description 2", "Normal","11/11/22"));
+        repository.create(new Note("Title3", "Description 3", "Normal","11/11/22"));
+        repository.create(new Note("Title4", "Description 4", "Normal","11/11/22"));
+        repository.create(new Note("Title5", "Description 5", "Normal","11/11/22"));
+        repository.create(new Note("Title6", "Description 6", "Normal","11/11/22"));
+        repository.create(new Note("Title7", "Description 7", "Normal","11/11/22"));
+        repository.create(new Note("Title8", "Description 8", "Normal","11/11/22"));
+        repository.create(new Note("Title9", "Description 9", "Normal","11/11/22"));
+        repository.create(new Note("Title10", "Description 10", "Normal","11/11/22"));
+        repository.create(new Note("Title11", "Description 11", "Normal","11/11/22"));
+        repository.create(new Note("Title12", "Description 12", "Normal","11/11/22"));
+        repository.create(new Note("Title13", "Description 13", "Normal","11/11/22"));
+        repository.create(new Note("Title14", "Description 14", "Normal","11/11/22"));
+        repository.create(new Note("Title15", "Description 15", "Normal","11/11/22"));
+
     }
 
     @Override
@@ -133,9 +139,6 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
                     .commit();
 
         }
-
-
-        //TODO need date and importance of the note
 
 
     }

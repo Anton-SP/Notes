@@ -4,7 +4,14 @@
     <string name="update_button">Update note</string>
     <string name="hint_title">Title</string>
     <string name="hint_description">Description</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_date">Date</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_create">Create</string>
+    <string-array name="note_importance_level">
+        <item>low</item>
+        <item>normal</item>
+        <item>high</item>
+    </string-array>
+
+
 </resources>
