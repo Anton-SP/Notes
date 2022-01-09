@@ -34,16 +34,16 @@
 
             <TextView
                 android:id="@+id/note_importance_level"
-                android:layout_width="@dimen/additional_panel_width"
+                android:layout_width="@dimen/additional_panel_width_land"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/importance_level_size"
                 tools:text="level" />
 
             <TextView
                 android:id="@+id/note_date"
-                android:layout_width="@dimen/additional_panel_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/note_importance_level"
+                android:layout_toRightOf="@id/note_importance_level"
                 android:textSize="@dimen/date_size"
                 tools:text="date" />
 
@@ -52,7 +52,7 @@
                 android:id="@+id/note_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/note_importance_level"
+                android:layout_below="@id/note_importance_level"
                 android:textSize="@dimen/description_size"
                 tools:text="Description" />
 

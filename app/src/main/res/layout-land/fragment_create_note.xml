@@ -8,11 +8,14 @@
     android:clickable="true"
     android:focusable="true"
     tools:context=".fragments.CreateNoteFragment">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/fragment_create_main_panel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <EditText
@@ -31,6 +34,14 @@
             android:lines="4"
             android:textSize="@dimen/description_size"
             tools:text="Description" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_create_additional_info_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/fragment_create_main_panel">
 
         <Spinner
             android:id="@+id/fragment_create_importance_spinner"
@@ -45,6 +56,15 @@
             android:hint="@string/hint_date"
             android:textSize="12sp"
             tools:text="DATE" />
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_toRightOf="@id/fragment_create_additional_info_panel"
+    android:layout_below="@id/fragment_create_main_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
 
         <com.google.android.material.button.MaterialButton
@@ -52,9 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_button"
-            android:text="SET DATE"
+            android:text="@string/create_set_date_button"
             app:cornerRadius="@dimen/corner_radius" />
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fragment_create_note_button"
@@ -64,7 +83,10 @@
             android:text="@string/create_button"
             app:cornerRadius="@dimen/corner_radius" />
 
-    </LinearLayout>
 
+</LinearLayout>
+
+
+</RelativeLayout>
 
 </FrameLayout>

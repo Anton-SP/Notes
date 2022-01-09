@@ -13,6 +13,9 @@ public class NoteHolder extends RecyclerView.ViewHolder {
 
     private TextView title;
     private TextView description;
+    private TextView importance;
+    private TextView date;
+
     private Note note;
 
 
@@ -20,6 +23,8 @@ public class NoteHolder extends RecyclerView.ViewHolder {
         super(itemView);
         title = itemView.findViewById(R.id.note_title);
         description = itemView.findViewById(R.id.note_description);
+        importance = itemView.findViewById(R.id.note_importance_level);
+        date = itemView.findViewById(R.id.note_date);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +38,9 @@ public class NoteHolder extends RecyclerView.ViewHolder {
         this.note = note;
         title.setText(note.getTitle());
         description.setText(note.getDescription());
+        importance.setText(note.getImportance());
+        date.setText(note.getDate());
+
     }
 
 }

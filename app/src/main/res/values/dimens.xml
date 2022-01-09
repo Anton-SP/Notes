@@ -6,4 +6,8 @@
     <dimen name="margin_button">100dp</dimen>
     <dimen name="item_margin">12dp</dimen>
     <dimen name="card_elevation">12sp</dimen>
+    <dimen name="date_size">15sp</dimen>
+    <dimen name="importance_level_size">18sp</dimen>
+    <dimen name="additional_panel_width">100dp</dimen>
+    <dimen name="additional_panel_width_land">60dp</dimen>
 </resources>
