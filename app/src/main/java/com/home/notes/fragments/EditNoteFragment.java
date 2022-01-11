@@ -1,7 +1,5 @@
 package com.home.notes.fragments;
 
-import android.app.DatePickerDialog;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -17,16 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
 import com.google.android.material.button.MaterialButton;
 import com.home.notes.R;
 import com.home.notes.data.Constans;
 import com.home.notes.data.Note;
+import com.home.notes.dialogs.DateDialogFragment;
 
 
 public class EditNoteFragment extends Fragment  {
