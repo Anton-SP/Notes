@@ -1,6 +1,8 @@
 package com.home.notes.recycler;
 
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +17,12 @@ public class NoteHolder extends RecyclerView.ViewHolder {
     private TextView description;
     private TextView importance;
     private TextView date;
+    private ImageView noteMenu;
+
+    private PopupMenu popupMenu;
 
     private Note note;
+
 
 
     public NoteHolder(@NonNull View itemView, NoteAdapter.OnNoteClickListener listener) {
@@ -25,12 +31,19 @@ public class NoteHolder extends RecyclerView.ViewHolder {
         description = itemView.findViewById(R.id.note_description);
         importance = itemView.findViewById(R.id.note_importance_level);
         date = itemView.findViewById(R.id.note_date);
-        itemView.setOnClickListener(new View.OnClickListener() {
+        noteMenu = itemView.findViewById(R.id.note_menu);
+
+        popupMenu = new PopupMenu(itemView.getContext(),noteMenu);
+        popupMenu.inflate(R.menu.note_context);
+        noteMenu.setOnClickListener(v -> popupMenu.show());
+
+/*
+                itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onNoteClick(note);
             }
-        });
+        });*/
 
     }
 
