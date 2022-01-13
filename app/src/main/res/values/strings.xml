@@ -9,6 +9,7 @@
     <string name="menu_create">Create</string>
     <string name="edit_set_date_button">SET DATE</string>
     <string name="create_set_date_button">SET DATE</string>
+    <string name="cancel_button">Cancel</string>
     <string-array name="note_importance_level">
         <item>low</item>
         <item>normal</item>

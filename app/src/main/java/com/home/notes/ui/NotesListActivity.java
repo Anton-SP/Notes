@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import com.home.notes.R;
 
+import com.home.notes.data.Constans;
+import com.home.notes.data.Note;
+import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.fragments.CreateNoteFragment;
 
 import com.home.notes.fragments.NoteListFragment;
 
-public class NotesListActivity extends AppCompatActivity {
+public class NotesListActivity extends AppCompatActivity implements  NoteDialog.NoteDialogController {
 
 
     @Override
@@ -43,14 +46,14 @@ public class NotesListActivity extends AppCompatActivity {
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .add(R.id.list_fragment_holder, new CreateNoteFragment())
+                            .add(R.id.list_fragment_holder, new CreateNoteFragment(), Constans.NOTE_LIST_FRAGMENT)
                             .addToBackStack(null)
                             .commit();
                     return true;
                 } else {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.detail_fragment_holder, new CreateNoteFragment())
+                            .replace(R.id.detail_fragment_holder, new CreateNoteFragment(), Constans.NOTE_LIST_FRAGMENT)
                             .addToBackStack(null)
                             .commit();
                     return true;
@@ -78,6 +81,17 @@ public class NotesListActivity extends AppCompatActivity {
 
 
         super.onBackPressed();
+    }
+
+    @Override
+    public void update(Note note) {
+        Toast.makeText(this,"Hi",Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void create(String title, String description, String importance, String date) {
+
     }
 }
 

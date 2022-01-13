@@ -24,12 +24,13 @@ import com.home.notes.data.Constans;
 import com.home.notes.data.InMemoryRepoImp;
 import com.home.notes.data.Note;
 import com.home.notes.data.Repo;
+import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.recycler.NoteAdapter;
+import com.home.notes.recycler.PopupMenuClickListener;
 
-public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClickListener {
+public class NoteListFragment extends Fragment implements  PopupMenuClickListener {
 
     private Repo repository = InMemoryRepoImp.getInstance();
-
     private RecyclerView list;
     private NoteAdapter adapter;
 
@@ -51,10 +52,8 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(Constans.TAG, "onCreate()NOTE LISTTTTTTTT  ");
-///////////////////////////////////
 
-       requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
-     //   getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
+        requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Note resultNote = (Note) result.getSerializable(Constans.NOTE);
@@ -96,38 +95,38 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
         adapter = new NoteAdapter();
         adapter.setNotes(repository.getAll());
 
-        adapter.setOnNoteClickListener(this::onNoteClick);
-
+        //  adapter.setOnNoteClickListener(this::onNoteClick);
+        adapter.setOnPopupMenuItemClickListener(this);
         list = view.findViewById(R.id.recycler_note_list);
         list.setLayoutManager(new LinearLayoutManager(this.getContext()));
         list.setAdapter(adapter);
     }
 
     private void fillRepo() {
-        repository.create(new Note("Title1", "Description 1", "high","11/11/22"));
-        repository.create(new Note("Title2", "Description 2", "high","11/11/22"));
-        repository.create(new Note("Title3", "Description 3", "high","11/11/22"));
-        repository.create(new Note("Title4", "Description 4", "high","11/11/22"));
-        repository.create(new Note("Title5", "Description 5", "low","11/11/22"));
-        repository.create(new Note("Title6", "Description 6", "low","11/11/22"));
-        repository.create(new Note("Title7", "Description 7", "low","11/11/22"));
-        repository.create(new Note("Title8", "Description 8", "low","11/11/22"));
-        repository.create(new Note("Title9", "Description 9", "low","11/11/22"));
-        repository.create(new Note("Title10", "Description 10", "normal","11/11/22"));
-        repository.create(new Note("Title11", "Description 11", "normal","11/11/22"));
-        repository.create(new Note("Title12", "Description 12", "normal","11/11/22"));
-        repository.create(new Note("Title13", "Description 13", "normal","11/11/22"));
-        repository.create(new Note("Title14", "Description 14", "normal","11/11/22"));
-        repository.create(new Note("Title15", "Description 15", "normal","11/11/22"));
+        repository.create(new Note("Title1", "Description 1", "high", "11/11/22"));
+        repository.create(new Note("Title2", "Description 2", "high", "11/11/22"));
+        repository.create(new Note("Title3", "Description 3", "high", "11/11/22"));
+        repository.create(new Note("Title4", "Description 4", "high", "11/11/22"));
+        repository.create(new Note("Title5", "Description 5", "low", "11/11/22"));
+        repository.create(new Note("Title6", "Description 6", "low", "11/11/22"));
+        repository.create(new Note("Title7", "Description 7", "low", "11/11/22"));
+        repository.create(new Note("Title8", "Description 8", "low", "11/11/22"));
+        repository.create(new Note("Title9", "Description 9", "low", "11/11/22"));
+        repository.create(new Note("Title10", "Description 10", "normal", "11/11/22"));
+        repository.create(new Note("Title11", "Description 11", "normal", "11/11/22"));
+        repository.create(new Note("Title12", "Description 12", "normal", "11/11/22"));
+        repository.create(new Note("Title13", "Description 13", "normal", "11/11/22"));
+        repository.create(new Note("Title14", "Description 14", "normal", "11/11/22"));
+        repository.create(new Note("Title15", "Description 15", "normal", "11/11/22"));
 
     }
 
-    @Override
+ /*   @Override
     public void onNoteClick(Note note) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note),Constans.TAG_EDIT_FRAGMENT)
+                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note), Constans.TAG_EDIT_FRAGMENT)
                     .addToBackStack(null)
                     .commit();
         } else {
@@ -141,10 +140,38 @@ public class NoteListFragment extends Fragment implements NoteAdapter.OnNoteClic
         }
 
 
+    }*/
+
+
+    @Override
+    public void click(int command, Note note, int position) {
+        switch (command) {
+
+            case R.id.context_modify:
+                Toast.makeText(getContext(),"modify",Toast.LENGTH_SHORT).show();
+                NoteDialog.getInstance(note).show(requireActivity().getSupportFragmentManager(),Constans.DIALOG_NOTE);
+                return;
+
+            case R.id.context_delete:
+                repository.delete(note.getId());
+                adapter.delete(repository.getAll(), position);
+                return;
+        }
+
+
     }
 
+ /*  @Override
+    public void update(Note note) {
+repository.update(note);
+adapter.notifyItemChanged(note.getId());
+    }
 
-
-
+    @Override
+    public void create(String title, String description, String importance, String date) {
+        //Note createdNote = new Note(id, title.getText().toString(), description.getText().toString(), importance, date.getText().toString());
+        Note createdNote = new Note(-1,title,description,importance,date);
+        repository.create(createdNote);
+    }*/
 }
 
