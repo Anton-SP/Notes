@@ -61,6 +61,7 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
                     Log.d(Constans.TAG, "onFragmentResult() UPDATE ITEM!");
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
+               //     Toast.makeText(requireContext(),resultNote.getId().toString(),Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d(Constans.TAG, "onFragmentResult() NEW ITEM!");
                     repository.create(resultNote);
@@ -106,7 +107,7 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
         repository.create(new Note("Title1", "Description 1", "high", "11/11/22"));
         repository.create(new Note("Title2", "Description 2", "high", "11/11/22"));
         repository.create(new Note("Title3", "Description 3", "high", "11/11/22"));
-        repository.create(new Note("Title4", "Description 4", "high", "11/11/22"));
+       repository.create(new Note("Title4", "Description 4", "high", "11/11/22"));
         repository.create(new Note("Title5", "Description 5", "low", "11/11/22"));
         repository.create(new Note("Title6", "Description 6", "low", "11/11/22"));
         repository.create(new Note("Title7", "Description 7", "low", "11/11/22"));
@@ -150,18 +151,22 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
             case R.id.context_modify:
                 Toast.makeText(getContext(),"modify",Toast.LENGTH_SHORT).show();
                 NoteDialog.getInstance(note).show(requireActivity().getSupportFragmentManager(),Constans.DIALOG_NOTE);
+                Log.d(Constans.TAG,"modify");
                 return;
 
             case R.id.context_delete:
+                Toast.makeText(getContext(),"modify in delete",Toast.LENGTH_SHORT).show();
+
                 repository.delete(note.getId());
                 adapter.delete(repository.getAll(), position);
+                Log.d(Constans.TAG,"modify in delete");
                 return;
         }
 
 
     }
 
- /*  @Override
+  /*@Override
     public void update(Note note) {
 repository.update(note);
 adapter.notifyItemChanged(note.getId());

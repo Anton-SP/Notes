@@ -69,4 +69,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
         notes = all;
         notifyItemRemoved(position);
     }
+
+
 }

@@ -7,6 +7,7 @@ public interface Constans {
     public static final String NOTE = "NOTE";
     public static final String REQUEST_KEY = "REQUEST_KEY";
     public static final String REQUEST_DATE_KEY = "REQUEST_DATE_KEY";
+    public static final String DIALOG_NOTE_KEY = "DIALOG_NOTE_KEY";
     public static final String DIALOG_NOTE = "DIALOG_NOTE";
     public static final String NOTE_LIST_FRAGMENT = "NOTE_LIST_FRAGMENT";
     public static final String DATE = "DATE";

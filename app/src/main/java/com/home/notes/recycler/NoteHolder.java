@@ -68,9 +68,11 @@ public class NoteHolder extends RecyclerView.ViewHolder implements PopupMenu.OnM
         switch (item.getItemId()) {
             case R.id.context_modify:
               listener.click(R.id.context_modify,note,getAdapterPosition());
+                return true;
                 //  Toast.makeText(itemView.getContext(), "Modify", Toast.LENGTH_SHORT).show();
             case R.id.context_delete:
                 listener.click(R.id.context_delete,note,getAdapterPosition());
+                return true;
                 //Toast.makeText(itemView.getContext(), "Delete", Toast.LENGTH_SHORT).show();
             default:
                 return false;
