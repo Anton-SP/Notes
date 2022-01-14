@@ -43,13 +43,9 @@ public class NotesListActivity extends AppCompatActivity implements NoteDialog.N
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_create:
-                NoteDialog.getInstance(null).show(getSupportFragmentManager(), Constans.DIALOG_NOTE);
-               /* if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.list_fragment_holder, new CreateNoteFragment(), Constans.NOTE_LIST_FRAGMENT)
-                            .addToBackStack(null)
-                            .commit();
+
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    NoteDialog.getInstance(null).show(getSupportFragmentManager(), Constans.DIALOG_NOTE);
                     return true;
                 } else {
                     getSupportFragmentManager()
@@ -58,7 +54,7 @@ public class NotesListActivity extends AppCompatActivity implements NoteDialog.N
                             .addToBackStack(null)
                             .commit();
                     return true;
-                }*/
+                }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -77,15 +73,12 @@ public class NotesListActivity extends AppCompatActivity implements NoteDialog.N
 
         }
 
-
         super.onBackPressed();
     }
 
     @Override
     public void update(Note note) {
-        // Toast.makeText(this,"Hi",Toast.LENGTH_SHORT).show();
         Bundle result = new Bundle();
-        //   Note updatedNote = new Note(id, title.getText().toString(), description.getText().toString(),importance,date.getText().toString());
         result.putSerializable(Constans.NOTE, note);
         getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
     }
@@ -96,7 +89,6 @@ public class NotesListActivity extends AppCompatActivity implements NoteDialog.N
         Note createdNote = new Note(-1, title, description, importance, date);
         result.putSerializable(Constans.NOTE, createdNote);
         getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
-
     }
 }
 

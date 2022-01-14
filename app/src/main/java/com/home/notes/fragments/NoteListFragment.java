@@ -28,7 +28,7 @@ import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.recycler.NoteAdapter;
 import com.home.notes.recycler.PopupMenuClickListener;
 
-public class NoteListFragment extends Fragment implements  PopupMenuClickListener {
+public class NoteListFragment extends Fragment implements PopupMenuClickListener {
 
     private Repo repository = InMemoryRepoImp.getInstance();
     private RecyclerView list;
@@ -61,7 +61,7 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
                     Log.d(Constans.TAG, "onFragmentResult() UPDATE ITEM!");
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
-               //     Toast.makeText(requireContext(),resultNote.getId().toString(),Toast.LENGTH_SHORT).show();
+
                 } else {
                     Log.d(Constans.TAG, "onFragmentResult() NEW ITEM!");
                     repository.create(resultNote);
@@ -107,7 +107,7 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
         repository.create(new Note("Title1", "Description 1", "high", "11/11/22"));
         repository.create(new Note("Title2", "Description 2", "high", "11/11/22"));
         repository.create(new Note("Title3", "Description 3", "high", "11/11/22"));
-       repository.create(new Note("Title4", "Description 4", "high", "11/11/22"));
+        repository.create(new Note("Title4", "Description 4", "high", "11/11/22"));
         repository.create(new Note("Title5", "Description 5", "low", "11/11/22"));
         repository.create(new Note("Title6", "Description 6", "low", "11/11/22"));
         repository.create(new Note("Title7", "Description 7", "low", "11/11/22"));
@@ -149,34 +149,31 @@ public class NoteListFragment extends Fragment implements  PopupMenuClickListene
         switch (command) {
 
             case R.id.context_modify:
-                Toast.makeText(getContext(),"modify",Toast.LENGTH_SHORT).show();
-                NoteDialog.getInstance(note).show(requireActivity().getSupportFragmentManager(),Constans.DIALOG_NOTE);
-                Log.d(Constans.TAG,"modify");
+                Log.d(Constans.TAG, "modify option");
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                {
+                    NoteDialog.getInstance(note).show(requireActivity().getSupportFragmentManager(), Constans.DIALOG_NOTE);
+                } else
+                {
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.detail_fragment_holder, EditNoteFragment.newInstance(note))
+                            .addToBackStack(null)
+                            .commit();
+                }
+
                 return;
 
             case R.id.context_delete:
-                Toast.makeText(getContext(),"modify in delete",Toast.LENGTH_SHORT).show();
-
                 repository.delete(note.getId());
                 adapter.delete(repository.getAll(), position);
-                Log.d(Constans.TAG,"modify in delete");
+                Log.d(Constans.TAG, "delete option");
                 return;
         }
 
 
     }
 
-  /*@Override
-    public void update(Note note) {
-repository.update(note);
-adapter.notifyItemChanged(note.getId());
-    }
 
-    @Override
-    public void create(String title, String description, String importance, String date) {
-        //Note createdNote = new Note(id, title.getText().toString(), description.getText().toString(), importance, date.getText().toString());
-        Note createdNote = new Note(-1,title,description,importance,date);
-        repository.create(createdNote);
-    }*/
 }
 
