@@ -15,51 +15,131 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <TextView
 
-            android:id="@+id/note_title"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/title_size"
-            tools:text="Title example" />
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_size"
+                tools:text="Title example" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/note_importance_level"
-                android:layout_width="@dimen/additional_panel_width_land"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/importance_level_size"
+                android:textSize="@dimen/date_size"
                 tools:text="level" />
+
 
             <TextView
                 android:id="@+id/note_date"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/note_importance_level"
                 android:textSize="@dimen/date_size"
                 tools:text="date" />
 
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/note_description"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/note_importance_level"
-                android:textSize="@dimen/description_size"
-                tools:text="Description" />
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/note_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/description_size"
+                    tools:text="Description" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/note_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_more_vert_24"/>
 
 
     </LinearLayout>
+
+
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_size"
+                tools:text="Title example" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/note_importance_level"
+                    android:layout_width="@dimen/additional_panel_width_land"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/importance_level_size"
+                    tools:text="level" />
+
+                <TextView
+                    android:id="@+id/note_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/note_importance_level"
+                    android:textSize="@dimen/date_size"
+                    tools:text="date" />
+
+
+                <TextView
+                    android:id="@+id/note_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/note_importance_level"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginEnd="0dp"
+                    android:textSize="@dimen/description_size"
+                    tools:text="Description" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        -->
 
 
 </androidx.cardview.widget.CardView>

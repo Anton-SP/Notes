@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import com.home.notes.R;
 
+import com.home.notes.data.Constans;
+import com.home.notes.data.Note;
+import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.fragments.CreateNoteFragment;
 
 import com.home.notes.fragments.NoteListFragment;
 
-public class NotesListActivity extends AppCompatActivity {
+public class NotesListActivity extends AppCompatActivity implements NoteDialog.NoteDialogController {
 
 
     @Override
@@ -40,17 +43,14 @@ public class NotesListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_create:
+
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.list_fragment_holder, new CreateNoteFragment())
-                            .addToBackStack(null)
-                            .commit();
+                    NoteDialog.getInstance(null).show(getSupportFragmentManager(), Constans.DIALOG_NOTE);
                     return true;
                 } else {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.detail_fragment_holder, new CreateNoteFragment())
+                            .replace(R.id.detail_fragment_holder, new CreateNoteFragment(), Constans.NOTE_LIST_FRAGMENT)
                             .addToBackStack(null)
                             .commit();
                     return true;
@@ -62,13 +62,10 @@ public class NotesListActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        for (Fragment f: getSupportFragmentManager().getFragments())
-        {
-            if (f.isVisible())
-            {
+        for (Fragment f : getSupportFragmentManager().getFragments()) {
+            if (f.isVisible()) {
                 FragmentManager childFm = f.getChildFragmentManager();
-                if (childFm.getBackStackEntryCount()>0)
-                {
+                if (childFm.getBackStackEntryCount() > 0) {
                     childFm.popBackStack();
                     return;
                 }
@@ -76,8 +73,22 @@ public class NotesListActivity extends AppCompatActivity {
 
         }
 
-
         super.onBackPressed();
+    }
+
+    @Override
+    public void update(Note note) {
+        Bundle result = new Bundle();
+        result.putSerializable(Constans.NOTE, note);
+        getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
+    }
+
+    @Override
+    public void create(String title, String description, String importance, String date) {
+        Bundle result = new Bundle();
+        Note createdNote = new Note(-1, title, description, importance, date);
+        result.putSerializable(Constans.NOTE, createdNote);
+        getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
     }
 }
 

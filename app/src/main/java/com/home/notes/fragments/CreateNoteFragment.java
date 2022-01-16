@@ -21,12 +21,12 @@ import android.widget.ArrayAdapter;
 
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.home.notes.R;
 import com.home.notes.data.Constans;
 import com.home.notes.data.Note;
+import com.home.notes.dialogs.DateDialogFragment;
 
 public class CreateNoteFragment extends Fragment {
 
@@ -37,8 +37,6 @@ public class CreateNoteFragment extends Fragment {
     private MaterialButton setDate;
     private Spinner importanceSpinner;
     private String importance;
-
-
     private int id = -1;
 
 
@@ -75,21 +73,17 @@ public class CreateNoteFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-
-        //Log.d(Constans.TAG, "onViewCreated() called with: view");
         title = view.findViewById(R.id.fragment_create_title);
         description = view.findViewById(R.id.fragment_create_description);
         createNote = view.findViewById(R.id.fragment_create_note_button);
         setDate = view.findViewById(R.id.fragment_create_date_button);
         date = view.findViewById(R.id.fragment_create_date);
 
-        /////////////////////////////
-       //getParentFragmentManager().setFragmentResultListener(Constans.REQUEST_DATE_KEY, this, new FragmentResultListener() {
+
         requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_DATE_KEY, this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 String setDate = result.getString(Constans.DATE);
-               // Log.d(Constans.TAG, setDate);
                 date.setText(setDate);
             }
         });
@@ -120,7 +114,7 @@ public class CreateNoteFragment extends Fragment {
                 Note createdNote = new Note(id, title.getText().toString(), description.getText().toString(), importance, date.getText().toString());
                 result.putSerializable(Constans.NOTE, createdNote);
                 requireActivity().getSupportFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
-                //getParentFragmentManager().setFragmentResult(Constans.REQUEST_KEY, result);
+
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     requireActivity().getSupportFragmentManager().popBackStack();
                 } else {
