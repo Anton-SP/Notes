@@ -29,7 +29,7 @@ import com.home.notes.data.Note;
 import com.home.notes.dialogs.DateDialogFragment;
 
 public class CreateNoteFragment extends Fragment {
-
+///
     private EditText title;
     private EditText description;
     private EditText date;
