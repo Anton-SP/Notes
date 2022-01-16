@@ -15,6 +15,7 @@ import com.home.notes.R;
 
 import com.home.notes.data.Constans;
 import com.home.notes.data.Note;
+import com.home.notes.dialogs.ConfirmExitDialog;
 import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.fragments.CreateNoteFragment;
 
@@ -64,16 +65,27 @@ public class NotesListActivity extends AppCompatActivity implements NoteDialog.N
 
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             if (f.isVisible()) {
+
                 FragmentManager childFm = f.getChildFragmentManager();
                 if (childFm.getBackStackEntryCount() > 0) {
                     childFm.popBackStack();
                     return;
                 }
+
+
             }
 
         }
 
-        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount()==0)
+        {
+            new ConfirmExitDialog().show(getSupportFragmentManager(),Constans.DIALOG_EXIT);
+        } else
+        {
+            super.onBackPressed();
+        }
+
+
     }
 
     @Override
