@@ -10,6 +10,10 @@
     <string name="edit_set_date_button">SET DATE</string>
     <string name="create_set_date_button">SET DATE</string>
     <string name="cancel_button">Cancel</string>
+    <string name="exit_dialog_title">Confirm exit</string>
+    <string name="exit_dialog_message">Are you sure you want to close the Notes app?</string>
+    <string name="exit_toast">Notes app has been closed</string>
+    <string name="yes_dialog_button">Yes</string>
     <string-array name="note_importance_level">
         <item>low</item>
         <item>normal</item>

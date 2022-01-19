@@ -122,26 +122,7 @@ public class NoteListFragment extends Fragment implements PopupMenuClickListener
 
     }
 
- /*   @Override
-    public void onNoteClick(Note note) {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.list_fragment_holder, EditNoteFragment.newInstance(note), Constans.TAG_EDIT_FRAGMENT)
-                    .addToBackStack(null)
-                    .commit();
-        } else {
 
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.detail_fragment_holder, EditNoteFragment.newInstance(note))
-                    .addToBackStack(null)
-                    .commit();
-
-        }
-
-
-    }*/
 
 
     @Override
