@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/notes"
+        android:id="@+id/navigation_about"
         android:icon="@drawable/ic_baseline_sticky_note_2_24"
-        android:title="Notes"/>
+        android:title="@string/navigation_menu_about"/>
     <item
-        android:id="@+id/about"
+        android:id="@+id/navigation_close"
         android:icon="@drawable/ic_baseline_info_24"
-        android:title="About this app"/>
+        android:title="@string/navigation_menu_close"/>
 </menu>

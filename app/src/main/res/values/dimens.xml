@@ -10,5 +10,5 @@
     <dimen name="importance_level_size">18sp</dimen>
     <dimen name="additional_panel_width">100dp</dimen>
     <dimen name="additional_panel_width_land">60dp</dimen>
-    <dimen name="drawer_height">150dp</dimen>
+    <dimen name="drawer_height">250dp</dimen>
 </resources>

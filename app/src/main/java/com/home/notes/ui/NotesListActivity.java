@@ -1,7 +1,10 @@
 package com.home.notes.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -11,10 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.home.notes.R;
 
 import com.home.notes.data.Constans;
 import com.home.notes.data.Note;
+import com.home.notes.dialogs.AboutDialog;
 import com.home.notes.dialogs.ConfirmExitDialog;
 import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.fragments.CreateNoteFragment;
@@ -24,14 +29,54 @@ import com.home.notes.fragments.NoteListFragment;
 public class NotesListActivity extends AppCompatActivity implements NoteDialog.NoteDialogController {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+        initToolbarAndDrawer();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.list_fragment_holder, new NoteListFragment())
                 .commit();
+    }
+
+    private void initToolbarAndDrawer() {
+        Toolbar toolbar = findViewById(R.id.custom_toolbar);
+        setSupportActionBar(toolbar);
+        initDrawer(toolbar);
+    }
+
+    private void initDrawer(Toolbar toolbar) {
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id  = item.getItemId();
+                switch (id) {
+                    case R.id.navigation_about:
+                        new AboutDialog().show(getSupportFragmentManager(),Constans.DIALOG_ABOUT);
+
+                        return true;
+                    case R.id.navigation_close:
+                        new ConfirmExitDialog().show(getSupportFragmentManager(),Constans.DIALOG_EXIT);
+
+                        return true;
+                }
+                return  false;
+            }
+        });
+
+
+
     }
 
     @Override
