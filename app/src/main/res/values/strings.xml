@@ -14,6 +14,12 @@
     <string name="exit_dialog_message">Are you sure you want to close the Notes app?</string>
     <string name="exit_toast">Notes app has been closed</string>
     <string name="yes_dialog_button">Yes</string>
+    <string name="drawer_header">Notes menu</string>
+    <string name="toolbar_title">Notes</string>
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
+    <string name="navigation_menu_about">About this app</string>
+    <string name="navigation_menu_close">Close app</string>
     <string-array name="note_importance_level">
         <item>low</item>
         <item>normal</item>

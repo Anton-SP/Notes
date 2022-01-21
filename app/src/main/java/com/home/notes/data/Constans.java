@@ -10,6 +10,7 @@ public interface Constans {
     public static final String DIALOG_NOTE_KEY = "DIALOG_NOTE_KEY";
     public static final String DIALOG_NOTE = "DIALOG_NOTE";
     public static final String DIALOG_EXIT = "DIALOG_EXIT";
+    public static final String DIALOG_ABOUT = "DIALOG_ABOUT";
     public static final String NOTE_LIST_FRAGMENT = "NOTE_LIST_FRAGMENT";
     public static final String DATE = "DATE";
     public static final String TAG = "HAPPY";
