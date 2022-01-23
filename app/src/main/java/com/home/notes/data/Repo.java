@@ -3,6 +3,9 @@ package com.home.notes.data;
 import java.util.List;
 
 public interface Repo {
+
+
+
     int create(Note note);
 
     Note read(int id);
@@ -12,4 +15,6 @@ public interface Repo {
     void delete(int id);
 
     List<Note> getAll();
+
+
 }
