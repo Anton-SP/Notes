@@ -1,5 +1,6 @@
 package com.home.notes.fragments;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.service.controls.templates.ControlButton;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.home.notes.R;
 import com.home.notes.data.Constans;
 import com.home.notes.data.InMemoryRepoImp;
@@ -28,11 +33,17 @@ import com.home.notes.dialogs.NoteDialog;
 import com.home.notes.recycler.NoteAdapter;
 import com.home.notes.recycler.PopupMenuClickListener;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 public class NoteListFragment extends Fragment implements PopupMenuClickListener {
 
     private Repo repository = InMemoryRepoImp.getInstance();
     private RecyclerView list;
     private NoteAdapter adapter;
+    private SharedPreferences pref;
+    private Gson gson =  new Gson();
 
 
     public NoteListFragment() {
@@ -51,7 +62,8 @@ public class NoteListFragment extends Fragment implements PopupMenuClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Constans.TAG, "onCreate()NOTE LISTTTTTTTT  ");
+        Log.d(Constans.TAG, "onCreate()NOTE LIST");
+        pref = PreferenceManager.getDefaultSharedPreferences(requireContext());
 
         requireActivity().getSupportFragmentManager().setFragmentResultListener(Constans.REQUEST_KEY, this, new FragmentResultListener() {
             @Override
@@ -61,16 +73,27 @@ public class NoteListFragment extends Fragment implements PopupMenuClickListener
                     Log.d(Constans.TAG, "onFragmentResult() UPDATE ITEM!");
                     repository.update(resultNote);
                     adapter.notifyItemChanged(resultNote.getId());
+                    saveRepo(repository);
 
                 } else {
                     Log.d(Constans.TAG, "onFragmentResult() NEW ITEM!");
                     repository.create(resultNote);
                     adapter.notifyItemInserted(resultNote.getId());
+                    saveRepo(repository);
+
                 }
 
             }
         });
 
+    }
+
+    private void saveRepo(Repo repository) {
+        String notesString = gson.toJson(repository);
+        pref
+                .edit()
+                .putString(Constans.PREF_KEY,notesString)
+                .apply();
     }
 
 
@@ -88,13 +111,33 @@ public class NoteListFragment extends Fragment implements PopupMenuClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String  notesString = pref.getString(Constans.PREF_KEY,"");
+        //
+        if (notesString.isEmpty()) {
+            Toast.makeText(requireActivity(), "No saved data", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                repository = gson.fromJson(notesString, new TypeToken<InMemoryRepoImp>(){}.getType());
+
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+        }
+
+
         if (((InMemoryRepoImp) repository).getCounter() == 0) {
-            fillRepo();
+          //  fillRepo();
         }
 
 
         adapter = new NoteAdapter();
         adapter.setNotes(repository.getAll());
+
 
         //  adapter.setOnNoteClickListener(this::onNoteClick);
         adapter.setOnPopupMenuItemClickListener(this);
@@ -148,6 +191,7 @@ public class NoteListFragment extends Fragment implements PopupMenuClickListener
             case R.id.context_delete:
                 repository.delete(note.getId());
                 adapter.delete(repository.getAll(), position);
+                saveRepo(repository);
                 Log.d(Constans.TAG, "delete option");
                 return;
         }

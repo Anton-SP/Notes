@@ -28,7 +28,7 @@ import com.home.notes.fragments.NoteListFragment;
 
 public class NotesListActivity extends AppCompatActivity implements NoteDialog.NoteDialogController {
 
-
+//start
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

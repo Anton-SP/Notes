@@ -118,7 +118,11 @@ public class NoteDialog extends DialogFragment implements DatePickerDialog.OnDat
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        datePicker.init(year, month, day, (view, yearSelected, monthOfYearSelected, dayOfMonthSelected) -> date.setText(yearSelected + "/" + (monthOfYearSelected+1) + "/" + dayOfMonthSelected));
+        datePicker.init(year, month, day, (
+                view,
+                yearSelected,
+                monthOfYearSelected,
+                dayOfMonthSelected) -> date.setText(yearSelected + "/" + (monthOfYearSelected+1) + "/" + dayOfMonthSelected));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         String buttonText;
